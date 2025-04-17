@@ -5,6 +5,7 @@ from .base import Base
 from passlib.context import CryptContext
 from datetime import datetime, timedelta, timezone  # New import for timestamps
 import jwt  # New import for token generation
+from sqlalchemy.orm import relationship
 
 # Import the secret from the environment file
 from config.environment import secret
@@ -19,6 +20,9 @@ class UserModel(Base):
     username = Column(String, nullable=False, unique=True)
     email = Column(String, nullable=False, unique=True)
     password_hash = Column(String, nullable=True)
+
+    teas = relationship('TeaModel', back_populates='user')
+
 
     def set_password(self, password: str):
         self.password_hash = pwd_context.hash(password)

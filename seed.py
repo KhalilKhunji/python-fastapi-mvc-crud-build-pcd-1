@@ -18,14 +18,13 @@ try:
     print("Seeding database...")
     db = SessionLocal()
 
+    db.add_all(user_list)
+    db.commit()
+
     db.add_all(teas_list)
     db.commit()
 
     db.add_all(comments_list)
-    db.commit()
-
-    # add users
-    db.add_all(user_list)
     db.commit()
 
     db.close()
